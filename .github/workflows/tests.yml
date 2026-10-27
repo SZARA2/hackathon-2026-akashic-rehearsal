@@ -1,0 +1,39 @@
+name: Software checks
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python-version: ['3.11', '3.12']
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      AI_BASE_URL: ''
+      AI_MODEL: ''
+      AI_API_KEY: ''
+      NEBIUS_API_KEY: ''
+      NEBIUS_MODEL: ''
+      PAYPAL_SANDBOX_CLIENT_ID: ''
+      PAYPAL_SANDBOX_SECRET: ''
+      DELIVERY_AI_PROVIDER: offline
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit and HTTP API tests (no external provider calls)
+        run: python -B -m unittest -v test_app
+      - name: JavaScript syntax
+        run: |
+          node --check static/app.js

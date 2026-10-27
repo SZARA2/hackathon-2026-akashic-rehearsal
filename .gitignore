@@ -1,0 +1,17 @@
+# Public-source package: never commit generated state or credentials.
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+data/
+private/
+evidence/
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+*.log
+.DS_Store
