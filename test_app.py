@@ -193,6 +193,16 @@ class WorkspaceTests(unittest.TestCase):
         checks = artifact_checks(TASKS["ops-report"], {**DEFAULTS["aster"], "number_format": "exact"}, body)
         self.assertTrue(all(c["passed"] for c in checks))
 
+    def test_recent_increase_is_warned_even_when_wrapped_as_a_hypothesis(self):
+        raw = ("12,743 transactions; $9,584.62; 3.17%. Risk Hypothesis: A possible hypothesis is that "
+               "the recent increase in error rate may be attributed to a discrepancy in data processing protocols. "
+               "Provided source IDs: sample:aster-october-v1")
+        checks = artifact_checks(TASKS["ops-report"], {**DEFAULTS["aster"], "number_format": "exact"}, raw)
+        trend = next(c for c in checks if c["name"] == "No unsupported trend phrase detected")
+        self.assertFalse(trend["passed"])
+        self.assertIn("recent increase", trend["detail"])
+        self.assertIn("the recent increase", raw)
+
     def test_evaluation_denominators_and_provenance_are_explicit(self):
         result = self.app.evaluate(self.owner, {"mode": "offline"})
         self.assertTrue(result["synthetic"])

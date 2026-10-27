@@ -28,7 +28,7 @@ Letta, Mem0, LangGraph and Honcho already provide important memory, state and re
 
 ## What we verified
 
-29 automated unit/API tests cover proposal-before-adoption, actual work-artifact generation, project isolation, one-task consumption, expiry, explicit conflict replacement, source/history retention, stale-preview protection, SQLite restart persistence, browser-session isolation, Origin/Host/JSON boundaries, rejection of unsupported model proposals, source-list assembly without rewriting model numbers and limited warnings for unprovided numeric targets or unsupported trend claims. Offline comparison outcomes are synthetic state checks; they do not establish model accuracy or personalisation benefit. Green check marks are not comprehensive factual verification.
+30 automated unit/API tests cover proposal-before-adoption, actual work-artifact generation, project isolation, one-task consumption, expiry, explicit conflict replacement, source/history retention, stale-preview protection, SQLite restart persistence, browser-session isolation, Origin/Host/JSON boundaries, rejection of unsupported model proposals, source-list assembly without rewriting model numbers and limited warnings for unprovided numeric targets or unsupported trend claims, including “recent increase” phrasing inside a hypothesis. Offline comparison outcomes are synthetic state checks; they do not establish model accuracy or personalisation benefit. Green check marks are not comprehensive factual verification.
 
 ## Current completion status
 

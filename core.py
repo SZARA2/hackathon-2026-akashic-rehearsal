@@ -305,6 +305,7 @@ def artifact_checks(task, policy, body):
     checks.append({"name": "No unprovided numeric tokens detected", "passed": not unexpected,
                    "detail": "Unprovided tokens: " + (", ".join(unexpected) if unexpected else "none detected") + ". Limited body-text heuristic; not full factual verification."})
     patterns = [r"\b(?:significant|substantial|sharp|dramatic)\s+(?:increase|decrease|growth|decline)\b",
+                r"\brecent\s+(?:increase|decrease|growth|decline)\b",
                 r"\b(?:increased|decreased|improved|deteriorated|rose|fell)\s+by\b",
                 r"\bcompared\s+(?:with|to)\s+(?:last|previous)\b",
                 r"\b(?:higher|lower)\s+than\s+(?:last|previous)\b"]

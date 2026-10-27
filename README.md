@@ -20,7 +20,7 @@ Open `http://127.0.0.1:8882/`. The default is an explicitly labelled **offline d
 python -m unittest -v test_app
 ```
 
-29 unit/API tests passed on 27 October 2026. They check state and HTTP security properties, including rejection of unsupported model proposals, source-list assembly without numeric rewriting and warnings for unprovided numbers or unsupported trend phrases; passing tests do not establish model quality, customer benefit or hackathon eligibility.
+30 unit/API tests passed on 27 October 2026. They check state and HTTP security properties, including rejection of unsupported model proposals, source-list assembly without numeric rewriting and warnings for unprovided numbers or unsupported trend phrases; passing tests do not establish model quality, customer benefit or hackathon eligibility.
 
 ## Walkthrough
 
@@ -97,6 +97,8 @@ The application can deterministically attach known input source IDs. The rendere
 
 Artifact checks also warn about numeric tokens not supplied in these fixtures and a limited set of comparative trend phrases without historical facts. Prompts prohibit invented targets, deadlines and trend claims; generated numbers and prose are never rewritten to manufacture a pass. These heuristics do not detect all unsupported statements. `fixture_checks_passed` and green check marks mean only those listed checks passed, not full factual verification. A warning produces `needs_review` while preserving the original text.
 
+A later public local-model check still invented a “recent increase” inside a risk hypothesis. A regression test and warning pattern now catch that specific phrase while retaining the raw output. This is a known heuristic fix, not proof that unsupported factual claims are generally detected.
+
 ## Persistence and HTTP boundaries
 
 - SQLite transactions and optimistic policy versions reject stale previews and in-flight generation written against a changed policy.
@@ -158,8 +160,6 @@ All code here is newly authored; these projects were reviewed as related work, n
 
 MIT. See [LICENSE](LICENSE).
 
-## Hosted review demo
+## Public review demo
 
-[Open the interactive review demo](https://knowledge.openakashic.com/hackathons/akashic/)
-
-This is an owner-hosted review deployment using synthetic demonstration data. It is not evidence of deployment on Vultr, execution of an NVIDIA model on Nebius, or a verified PayPal Sandbox round trip. Those event-specific requirements remain separate submission gates, as described above. Repository publication is not contest submission.
+[Open the review workspace](https://knowledge.openakashic.com/hackathons/akashic/). This owner-hosted review build is not proof of NVIDIA/Nebius sponsor integration or contest submission.
