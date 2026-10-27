@@ -9,7 +9,7 @@ const badge = m => `<span class="pill ${esc(m)}">${m==='live'?'Live · NVIDIA on
 const disabled = () => busy ? 'disabled' : '';
 const artifactText = body => esc(body).replace(/\b\d[\d,.]*(?:k|%)?/g, '<span class="number">$&</span>');
 const policyTags = p => `<div class="policyline">${Object.entries(p).map(([k,v])=>`<span class="policytag">${esc(k.replaceAll('_',' '))}: ${esc(v)}</span>`).join('')}</div>`;
-const checks = a => `<div class="checks">${a.checks.map(c=>`<div class="check ${c.passed?'':'failed'}" title="${esc(c.detail)}">${c.passed?'✓':'!'} ${esc(c.name)}</div>`).join('')}</div>`;
+const checks = a => `<div class="checks">${a.checks.map(c=>`<div class="check ${c.passed?'':'failed'}" title="${esc(c.detail)}">${c.passed?'✓':'!'} ${esc(c.name)}</div>`).join('')}<p class="hint">Checks cover fixture formatting, provided input IDs and limited number/trend warnings. Green checks are not full factual verification.</p></div>`;
 const provenance = a => `<div class="provenance">${badge(a.provenance.mode)}<br>${esc(a.provenance.model || a.provenance.provider)} · ${a.provenance.actual_ai_call?'Actual model request':'No model request'}${a.provenance.request_id?`<br>Request ${esc(a.provenance.request_id)}`:''}${a.provenance.usage?`<br>Usage ${esc(JSON.stringify(a.provenance.usage))}`:''}${a.assembly?.source_footer_added?'<br>The app attached provided input source IDs. This is a source list, not per-claim attribution. Model numbers were not rewritten.':''}${a.raw_model_body?`<details><summary>Inspect raw model text</summary><div class="artifact">${artifactText(a.raw_model_body)}</div></details>`:''}</div>`;
 
 async function api(path, data) {

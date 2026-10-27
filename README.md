@@ -20,7 +20,7 @@ Open `http://127.0.0.1:8882/`. The default is an explicitly labelled **offline d
 python -m unittest -v test_app
 ```
 
-27 unit/API tests passed on 27 October 2026. They check state and HTTP security properties, including rejection of unsupported model proposals and source-list assembly without numeric rewriting; passing tests do not establish model quality, customer benefit or hackathon eligibility.
+29 unit/API tests passed on 27 October 2026. They check state and HTTP security properties, including rejection of unsupported model proposals, source-list assembly without numeric rewriting and warnings for unprovided numbers or unsupported trend phrases; passing tests do not establish model quality, customer benefit or hackathon eligibility.
 
 ## Walkthrough
 
@@ -94,6 +94,8 @@ The cross-project rehearsal panel reuses one generated sibling artifact when its
 No weights are updated. No trained personality, lifelong learning, statistically significant personalisation improvement or production customer result is claimed.
 
 The application can deterministically attach known input source IDs. The rendered artifact and raw model body remain separate, and the UI identifies application-added references. Source-list presence is not a measure of model citation ability, real-world source completeness or claim-level grounding.
+
+Artifact checks also warn about numeric tokens not supplied in these fixtures and a limited set of comparative trend phrases without historical facts. Prompts prohibit invented targets, deadlines and trend claims; generated numbers and prose are never rewritten to manufacture a pass. These heuristics do not detect all unsupported statements. `fixture_checks_passed` and green check marks mean only those listed checks passed, not full factual verification. A warning produces `needs_review` while preserving the original text.
 
 ## Persistence and HTTP boundaries
 

@@ -176,6 +176,23 @@ class WorkspaceTests(unittest.TestCase):
         self.assertFalse(assembly["model_output_preserved"])
         self.assertEqual(assembly["provided_source_ids"], [])
 
+    def test_unprovided_target_and_unsupported_trend_are_warnings_even_with_correct_fixture_numbers(self):
+        policy = {**DEFAULTS["aster"], "number_format": "exact"}
+        raw = ("12,743 transactions; $9,584.62; error rate 3.17%. A significant increase in errors. "
+               "Reduce the error rate by 10% within next quarter. Source: sample:aster-october-v1")
+        checks = artifact_checks(TASKS["ops-report"], policy, raw)
+        by_name = {c["name"]: c for c in checks}
+        self.assertTrue(by_name["Requested numeric representation"]["passed"])
+        self.assertTrue(by_name["Provided source ID present"]["passed"])
+        self.assertFalse(by_name["No unprovided numeric tokens detected"]["passed"])
+        self.assertIn("10%", by_name["No unprovided numeric tokens detected"]["detail"])
+        self.assertFalse(by_name["No unsupported trend phrase detected"]["passed"])
+
+    def test_known_source_ids_and_ordered_list_numbers_are_not_invented_numeric_targets(self):
+        body = "1. Review 12,743 transactions and $9,584.62 revenue.\n2. Investigate the 3.17% error rate.\nProvided source IDs: sample:aster-october-v1"
+        checks = artifact_checks(TASKS["ops-report"], {**DEFAULTS["aster"], "number_format": "exact"}, body)
+        self.assertTrue(all(c["passed"] for c in checks))
+
     def test_evaluation_denominators_and_provenance_are_explicit(self):
         result = self.app.evaluate(self.owner, {"mode": "offline"})
         self.assertTrue(result["synthetic"])
